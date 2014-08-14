@@ -40,15 +40,9 @@ class Model
     attr_name = method.to_s.downcase.gsub('_', '')
     attr_value = false
     self.attributes.each do |key, value|
-      if key.downcase == attr_name
-        attr_value = value  # can be an object or nil
-      end
+      attr_value = value if key.downcase == attr_name  # can be an object or nil
     end
-    if attr_value == false
-      super
-    else
-      return attr_value
-    end
+    attr_value ? super : attr_value
   end
 
   # Sets the value of a named attribute. Overrides the value of
@@ -58,19 +52,19 @@ class Model
   # +value+:: Value that should be assigned.
   def set_attr(key, value)
     @attributes[key] = value
-    return @attributes
+    @attributes
   end
 
   # Returns the value, if any, of the given attribute name.
   #
   # +key+:: Attribute name whose value should be returned.
   def get_attr(key)
-    return @attributes[key]
+    @attributes[key]
   end
 
   # Returns a string representation of the model.
   def to_s
-    return self.inspect
+    self.inspect
   end
 end
 
