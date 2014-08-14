@@ -63,14 +63,12 @@ class APIClient
     # If headers are not needed, the following line should be enough:
     # return Net::HTTP.post_form(uri, post_data).body
     http_opts = {}
-    if uri.scheme == "https"
-      http_opts[:use_ssl] = true
-    end
+    http_opts[:use_ssl] = true if uri.scheme == "https"
     res = Net::HTTP.start(uri.host, uri.port, http_opts) { |http|
       encoded_data = hash2urlencode(post_data)
       http.post(uri.path, encoded_data, headers)
     }
-    return res.body
+    res.body
   end
 
   # URL encode a Hash of data values.
@@ -79,7 +77,7 @@ class APIClient
   def hash2urlencode(hash)
     # URI.escape (alias URI.encode) is obsolete since Ruby 1.9.2.
     #return hash.map{|k,v| URI.encode(k.to_s) + "=" + URI.encode(v.to_s)}.join("&")
-    return hash.map{|k,v| URI.encode_www_form_component(k.to_s) + "=" + URI.encode_www_form_component(v.to_s)}.join("&")
+    hash.map{|k,v| URI.encode_www_form_component(k.to_s) + "=" + URI.encode_www_form_component(v.to_s)}.join("&")
   end
 
   # Makes a PUT call to a given URI for depositing file contents.
@@ -89,7 +87,7 @@ class APIClient
   # +headers+:: Header of the PUT call.
   # +trans_file+:: Path to the file that should be transferred.
   def put_call(resource_path, post_data, headers, trans_file)
-    return %x(curl -H "x-access-token:#{@api_key}" -H "Content-MD5:#{headers['Content-MD5'].strip}" -T "#{trans_file}" -X PUT #{resource_path})
+    %x(curl -H "x-access-token:#{@api_key}" -H "Content-MD5:#{headers['Content-MD5'].strip}" -T "#{trans_file}" -X PUT #{resource_path})
   end
 
   # Deserialize a boolean value to a Ruby object.
@@ -102,7 +100,7 @@ class APIClient
     else
       result = true
     end
-    return result
+    result
   end
 
   # Carries out a RESTful operation on the BaseSpace API.
