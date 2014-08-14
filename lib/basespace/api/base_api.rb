@@ -94,7 +94,7 @@ class BaseAPI
      
     # Create output objects if the response has more than one object
     response_object = @api_client.deserialize(response, my_model)
-    return response_object.response
+    response_object.response
   end
 
   # Send a list request to the BaseSpace REST API.
@@ -146,16 +146,16 @@ class BaseAPI
         converted << @api_client.deserialize(c, my_model)
       end
     end
-    return converted
+    converted
   end
 
   # URL encode a Hash of data values.
   #
   # +hash+:: data encoded in a Hash.
   def hash2urlencode(hash)
-    # URI.escape (alias URI.encode) is obsolete since Ruby 1.9.2.
-    #return hash.map{|k,v| URI.encode(k.to_s) + "=" + URI.encode(v.to_s)}.join("&")
-    return hash.map{|k,v| URI.encode_www_form_component(k.to_s) + "=" + URI.encode_www_form_component(v.to_s)}.join("&")
+    # use URI.enode_www_form_component instead of
+    #hash.map{|k,v| URI.encode_www_form_component(k.to_s) + "=" + URI.encode_www_form_component(v.to_s)}.join("&")
+    URI.encode_www_form(hash)
   end
 
   # Post data to the given BaseSpace API URL. Method name is a bit of a 
@@ -179,9 +179,9 @@ class BaseAPI
     if uri.scheme == "https"
       http_opts[:use_ssl] = true
     end
-    res = Net::HTTP.start(uri.host, uri.port, http_opts) { |http|
+    res = Net::HTTP.start(uri.host, uri.port, http_opts) do |http|
       http.post(uri.path, post)
-    }
+    end
     obj = JSON.parse(res.body)
     if $DEBUG
       $stderr.puts "    # res: #{res}"
@@ -191,17 +191,17 @@ class BaseAPI
     if obj.has_key?('error')
       raise "BaseSpace exception: " + obj['error'] + " - " + obj['error_description']
     end
-    return obj
+    obj
   end
     
   # Return a string representation of this object.
   def to_s
-    return "BaseSpaceAPI instance - using token=#{get_access_token}"
+    "BaseSpaceAPI instance - using token=#{get_access_token}"
   end
 
   # Return a string representation of this object.
   def to_str
-    return self.to_s
+    self.to_s
   end
 
   # Specify the timeout in seconds for each request.
@@ -209,9 +209,7 @@ class BaseAPI
   # +param time+:: Timeout in second.
   def set_timeout(time)
     @timeout = time
-    if @api_client
-      @api_client.timeout = @timeout
-    end
+    @api_client.timeout = @timeout if @api_client
   end
   
   # Sets a new API token.
@@ -219,22 +217,17 @@ class BaseAPI
   # +token+:: New API token.
   def set_access_token(token)
     @api_client = nil
-    if token
-      @api_client = APIClient.new(token, @api_server, @timeout)
-    end
+    @api_client = APIClient.new(token, @api_server, @timeout) if token
   end
 
   # Returns the access-token that was used to initialize the BaseSpaceAPI object.
   def get_access_token
-    if @api_client
-      return @api_client.api_key
-    end
-    return ""  # [TODO] Should return nil in Ruby?
+    @api_client ? @api_client.api_key : ""  # [TODO] Should return nil in Ruby?
   end
   
   # Returns the server URI used by this instance.
   def get_server_uri
-    return @api_client.api_server
+    @api_client.api_server
   end
 end
 

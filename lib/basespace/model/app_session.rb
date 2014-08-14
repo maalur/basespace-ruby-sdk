@@ -36,7 +36,6 @@ class AppSession < Model
       'Id'             => nil,
       'Href'           => nil, # The URI of BaseSpace
       'Type'           => nil,
-      # TODO UserUserCreatedBy in Python code would be typo of UserCreatedBy (bug in Python SDK)
       'UserCreatedBy'  => nil, # The user that triggered your application
       'DateCreated'    => nil, # The datetime the user acted in BaseSpace
       'Status'         => nil,
@@ -48,7 +47,7 @@ class AppSession < Model
 
   # Return a string representation of the object, showing user information, ID and status.
   def to_s
-    return "App session by #{get_attr('UserCreatedBy')} - Id: #{get_attr('Id')} - status: #{get_attr('Status')}"
+    "App session by #{get_attr('UserCreatedBy')} - Id: #{get_attr('Id')} - status: #{get_attr('Status')}"
   end
 
   # Serialize references.
@@ -58,11 +57,10 @@ class AppSession < Model
     ref = []
     # [TODO] should this attribute initialized with []?
     get_attr('References').each do |r|
-      res = r.serialize_object(api)  # AppSessionLaunchObject
-      ref << res
+      ref << r.serialize_object(api)  # AppSessionLaunchObject
     end
     set_attr('References', ref)
-    return self
+    self
   end
 
   # Returns whether the App is running.
