@@ -33,6 +33,6 @@ module Bio
         }
       end
     end
-  end # module BaseSpace
-end # module Bio
+  end
+end
 
