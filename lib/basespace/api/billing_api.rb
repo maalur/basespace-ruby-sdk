@@ -28,9 +28,7 @@ class BillingAPI < BaseAPI
   # +access_token+:: Access token that is provided by App triggering. 
   def initialize(api_server, version, app_session_id = nil, access_token = nil)
     end_with_slash = %r(/$)
-    unless api_server[end_with_slash]
-      api_server += '/'
-    end
+    api_server += '/' unless api_server[end_with_slash]
     
     @app_session_id  = app_session_id
     @api_server      = api_server + version
@@ -41,23 +39,18 @@ class BillingAPI < BaseAPI
 
   # Creates a purchase with the specified products.
   # 
-  # +products+:: List of dicts to purchase, each of which has a product 'id' and 'quantity' to purchase.
+  # +products+:: List of dicts to purchase, each of which has a product 'id', 'quantity' to purchase, and optional 'tags[]'.
   # +app_session_id+:: AppSession ID.
   def create_purchase(products, app_session_id = nil)
     my_model       = 'PurchaseResponse'
     resource_path  = '/purchases/'
-    resource_path  = resource_path.sub('{format}', 'json')
     method         = 'POST'
     query_params   = {}
     header_params  = {}
-    post_data      = {}
-    # 'Products' is list of dicts with 'id', 'quantity', and optnl 'tags[]'
-    post_data['Products']  = products
-    if app_session_id
-      post_data['AppSessionId'] = app_session_id
-    end
+    post_data      = { 'Products' => products }
+    post_data['AppSessionId'] = app_session_id if app_session_id
     verbose        = false
-    return single_request(my_model, resource_path, method, query_params, header_params, post_data, verbose)
+    single_request(my_model, resource_path, method, query_params, header_params, post_data, verbose)
   end
           
   # Request a purchase object by ID.
@@ -65,13 +58,11 @@ class BillingAPI < BaseAPI
   # +id+:: The ID of the purchase.
   def get_purchase_by_id(id)
     my_model       = 'PurchaseResponse'
-    resource_path  = '/purchases/{Id}'
-    resource_path  = resource_path.sub('{format}', 'json')
-    resource_path  = resource_path.sub('{Id}', id)
+    resource_path  = "/purchases/#{id}"
     method         = 'GET'
     query_params   = {}
     header_params  = {}
-    return single_request(my_model, resource_path, method, query_params, header_params)
+    single_request(my_model, resource_path, method, query_params, header_params)
   end
 
   # Returns the Products for the current user.
@@ -81,12 +72,11 @@ class BillingAPI < BaseAPI
   def get_user_products(id = 'current', qps = {})
     query_pars     = QueryParametersPurchasedProduct.new(qps)
     my_model       = 'PurchasedProduct'
-    resource_path  = '/users/{Id}/products'
-    resource_path  = resource_path.sub('{Id}', id.to_s)
+    resource_path  = "/users/#{id}/products"
     method         = 'GET'
     query_params   = query_pars.get_parameter_dict
     header_params  = {}
-    return self.__listRequest__(my_model, resource_path, method, query_params, header_params)
+    list_request(my_model, resource_path, method, query_params, header_params)
   end
 
   # Creates a purchase with the specified products.
@@ -96,18 +86,14 @@ class BillingAPI < BaseAPI
   # +comment+:: An optional comment about the refund.
   def refund_purchase(purchase_id, refund_secret, comment = nil)
     my_model       = 'RefundPurchaseResponse'
-    resource_path  = '/purchases/{id}/refund'
-    resource_path  = resource_path.sub('{id}', purchase_id)
+    resource_path  = "/purchases/#{purchase_id}/refund"
     method         = 'POST'
     query_params   = {}
     header_params  = {}
-    post_data      = {}
-    post_data['RefundSecret']  = refund_secret
-    if comment
-      post_data['Comment']     = comment
-    end
+    post_data      = { 'RefundSecret' => refund_secret }
+    post_data['Comment'] = comment if comment
     verbose        = 0
-    return single_request(my_model, resource_path, method, query_params, header_params, post_data, verbose)
+    single_request(my_model, resource_path, method, query_params, header_params, post_data, verbose)
   end
 end
 
