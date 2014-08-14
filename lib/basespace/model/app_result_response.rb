@@ -14,27 +14,25 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# An AppResultResponse is used to initiate the creation of an AppResults object.
-class AppResultResponse < Model
+    # An AppResultResponse is used to initiate the creation of an AppResults object.
+    class AppResultResponse < Model
 
-  # Create a new result response instance.
-  def initialize
-    @swagger_types = {
-      'ResponseStatus'  => 'ResponseStatus',
-      'Response'        => 'AppResult',
-      'Notifications'   => 'list<Str>',
-    }
-    @attributes = {
-      'ResponseStatus'  => nil, # ResponseStatus
-      'Response'        => nil, # Analysis
-      'Notifications'   => nil,  # list<Str>
-    }
-  end
-
-end
-
-end # module BaseSpace
+      # Create a new result response instance.
+      def initialize
+        @swagger_types = {
+          'ResponseStatus'  => 'ResponseStatus',
+          'Response'        => 'AppResult',
+          'Notifications'   => 'list<Str>',
+        }
+        @attributes = {
+          'ResponseStatus'  => nil, # ResponseStatus
+          'Response'        => nil, # Analysis
+          'Notifications'   => nil,  # list<Str>
+        }
+      end
+    end
+  end # module BaseSpace
 end # module Bio
 

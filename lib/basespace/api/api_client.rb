@@ -117,7 +117,7 @@ class APIClient
     url = @api_server + resource_path
 
     headers = header_params.dup
-    headers['Content-Type'] = 'application/json' if not headers.has_key?('Content-Type') and not method == 'PUT'
+    headers['Content-Type'] = 'application/json' unless headers.has_key?('Content-Type') || method == 'PUT'
     # include access token in header
     headers['Authorization'] = "Bearer #{@api_key}"
 
@@ -154,7 +154,7 @@ class APIClient
       # In Ruby 2.0: Use Net::HTTP::Get.new(uri)
       case RUBY_VERSION
       when /^1.9/
-        if uri.query and not uri.query.empty?
+        if uri.query && not uri.query.empty?
           request = Net::HTTP::Get.new(uri.path + '?' + uri.query, headers)
         else
           request = Net::HTTP::Get.new(uri.path, headers)
@@ -174,11 +174,11 @@ class APIClient
       if force_post
         response = force_post_call(force_post_url, sent_query_params, headers)
       else
-        data = {} if not data or (data and data.empty?) # temp fix, in case is no data in the file, to prevent post request from failing
+        data = {} if not data || (data && data.empty?) # temp fix, in case is no data in the file, to prevent post request from failing
         uri = URI.parse(url)
         case RUBY_VERSION
         when /^1.9/
-          if uri.query and not uri.query.empty?
+          if uri.query && not uri.query.empty?
             request = Net::HTTP::Post.new(uri.path + '?' + uri.query, headers)
           else
             request = Net::HTTP::Post.new(uri.path, headers)
@@ -202,7 +202,7 @@ class APIClient
     end
 
     # Make the request, request may raise 403 forbidden, or 404 non-response
-    if not force_post and not ['PUT', 'DELETE'].include?(method)  # the normal case
+    unless force_post || ['PUT', 'DELETE'].include?(method)  # the normal case
       # puts url
       # puts request
       # puts "request with timeout=#{@timeout}"
@@ -225,18 +225,14 @@ class APIClient
       $stderr.puts "    # "
       data = nil
     end
-    return data
+    data
   end
 
   # Serialize a list to a CSV string, if necessary.
   #
   # +obj+:: Data object to be serialized.
   def to_path_value(obj)
-    if obj.kind_of?(Array)
-      return obj.join(',')
-    else
-      return obj
-    end
+    obj.kind_of?(Array) ? obj.join(',') : obj
   end
 
   # Deserialize a JSON string into an object.
@@ -324,9 +320,8 @@ class APIClient
       $stderr.puts "    # # instance: #{instance.attributes.inspect}"
       $stderr.puts "    # # "
     end
-    return instance
+    instance
   end
-
 end
 
 end # module BaseSpace

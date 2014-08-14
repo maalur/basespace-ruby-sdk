@@ -90,7 +90,7 @@ class AppResult < Model
         res << id
       end
     end
-    return res
+    res
   end
 
   # Returns a list of sample objects references by the AppResult.
@@ -103,8 +103,7 @@ class AppResult < Model
     ids = get_referenced_samples_ids
     ids.each do |id|
       begin
-        sample = api.get_sample_by_id(id)
-        res << sample
+        res << api.get_sample_by_id(id)
       rescue => err
         # [TODO] What to do with this 'err'?
         $stderr.puts "    # ----- AppResult#get_referenced_samples ----- "
@@ -112,7 +111,7 @@ class AppResult < Model
         $stderr.puts "    # "
       end
     end
-    return res
+    res
   end
 
   # Returns a list of file objects in the result set.
@@ -122,7 +121,7 @@ class AppResult < Model
   def get_files(api, my_qp = {})
     is_init
     query_pars = QueryParameters.new(my_qp)
-    return api.get_app_result_files(get_attr('Id'), query_pars)
+    api.get_app_result_files(get_attr('Id'), query_pars)
   end
 
   # Uploads a local file to the BaseSpace AppResult.
@@ -134,7 +133,7 @@ class AppResult < Model
   # +param content_type+:: Content-type of the file.
   def upload_file(api, local_path, file_name, directory, content_type)
     is_init
-    return api.app_result_file_upload(get_attr('Id'), local_path, file_name, directory, content_type)
+    api.app_result_file_upload(get_attr('Id'), local_path, file_name, directory, content_type)
   end
 
   # Upload a file in multi-part mode. Returns an object of type MultipartUpload used for managing the upload.
