@@ -629,14 +629,14 @@ BaseSpace Ruby SDK was initially ported by translating the BaseSpace Python SDK 
 *  indentation: Python 4 spaces, Ruby 2 spaces
 *  compund words: Python `ExampleLabel`, Ruby `example_label`
 *  constructors: Python `def __init__(self):`, Ruby `def initialize`
-*  class variables: Python `self.swaggerTypes = { "Key":"value" }`, Ruby `@swagger_types = { "Key" => "value" }`
+*  instance variables: Python `self.swaggerTypes = { "Key":"value" }`, Ruby `@swagger_types = { key: "value" }`
 *  void types: Python `None`, Ruby `nil`
 *  string representation: Python `__str__(self)`, Ruby `to_s (return @val.to_s)`
 *  object dump: Python `__repr__(self)`, Ruby `to_str (return self.inspect)` or `self.attributes.inspect` for attribute values
 *  exceptions: Python `FooBarException` -> `FooBarError`
 *  types:
    *  Python `str`, Ruby `String`
-   *  Python `int`, Ruby `Integer`
+   *  Python `int`, Ruby `Fixnum or Bignum`
    *  Python `float`, Ruby `Float`
    *  Python `bool`, Ruby `true`/`false`
    *  Python `list<>`, Ruby `Array`
@@ -659,6 +659,7 @@ In alphabetical order (last name):
 *  Toshiaki Katayama
 *  Eri Kibukawa
 *  Francesco Strozzi
+*  Mark Urich
 
 # Copying and License
 
