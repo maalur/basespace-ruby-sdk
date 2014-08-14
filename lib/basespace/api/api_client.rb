@@ -152,7 +152,7 @@ class APIClient
       # In Ruby 2.0: Use Net::HTTP::Get.new(uri)
       case RUBY_VERSION
       when /^1.9/
-        if uri.query && not uri.query.empty?
+        if uri.query and not uri.query.empty?
           request = Net::HTTP::Get.new(uri.path + '?' + uri.query, headers)
         else
           request = Net::HTTP::Get.new(uri.path, headers)
@@ -176,7 +176,7 @@ class APIClient
         uri = URI.parse(url)
         case RUBY_VERSION
         when /^1.9/
-          if uri.query && not uri.query.empty?
+          if uri.query and not uri.query.empty?
             request = Net::HTTP::Post.new(uri.path + '?' + uri.query, headers)
           else
             request = Net::HTTP::Post.new(uri.path, headers)
