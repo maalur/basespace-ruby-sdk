@@ -14,47 +14,45 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Basic representation of a BaseSpace model.
-class BaseSpaceModel < Model
-  attr_accessor :api
+    # Basic representation of a BaseSpace model.
+    class BaseSpaceModel < Model
+      attr_accessor :api
 
-  # Create a new BaseSpaceModel instance.
-  def initialize
-    # [TODO] This class is not similar to other modles. Need to check if this port is OK.
-    @swagger_types = {
-      'Id'  => 'str',
-    }
-    @attributes = {
-      'Id'  => nil,
-    }
-  end
+      # Create a new BaseSpaceModel instance.
+      def initialize
+        # [TODO] This class is not similar to other modles. Need to check if this port is OK.
+        @swagger_types = {
+          'Id'  => 'str',
+        }
+        @attributes = {
+          'Id'  => nil,
+        }
+      end
 
-  # Returns the ID of the model.
-  def id
-    get_attr('Id')
-  end
+      # Returns the ID of the model.
+      def id
+        get_attr('Id')
+      end
 
-  # Returns the ID of the model.
-  def to_s
-    is_init
-    return get_attr('Id')
-  end
-  
-  # Returns whether this object has been initialized, which is always the case (i.e., true).
-  def is_init
-    return true
-  end
-  
-  # Set a BaseSpaceAPI object for this BaseSpaceModel.
-  #
-  # +api+:: BaseSpaceAPI instance.
-  def set_api(api)
-    @api = api
+      # Returns the ID of the model.
+      def to_s
+        is_init
+        get_attr('Id')
+      end
+      
+      # Returns whether this object has been initialized, which is always the case (i.e., true).
+      def is_init
+        true
+      end
+      
+      # Set a BaseSpaceAPI object for this BaseSpaceModel.
+      #
+      # +api+:: BaseSpaceAPI instance.
+      def set_api(api)
+        @api = api
+      end
+    end
   end
 end
-
-end # module BaseSpace
-end # module Bio
-

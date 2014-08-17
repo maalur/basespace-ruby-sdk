@@ -14,27 +14,25 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Genome response object.
-class GenomeResponse < Model
+    # Genome response object.
+    class GenomeResponse < Model
 
-  # Create a new GenomeResponse instance.
-  def initialize
-    @swagger_types = {
-      'ResponseStatus'  => 'ResponseStatus',
-      'Response'        => 'GenomeV1',
-      'Notifications'   => 'list<Str>',
-    }
-    @attributes = {
-      'ResponseStatus'  => nil, # ResponseStatus
-      'Response'        => nil, # GenomeV1
-      'Notifications'   => nil, # list<Str>
-    }
+      # Create a new GenomeResponse instance.
+      def initialize
+        @swagger_types = {
+          'ResponseStatus'  => 'ResponseStatus',
+          'Response'        => 'GenomeV1',
+          'Notifications'   => 'list<Str>',
+        }
+        @attributes = {
+          'ResponseStatus'  => nil, # ResponseStatus
+          'Response'        => nil, # GenomeV1
+          'Notifications'   => nil, # list<Str>
+        }
+      end
+    end
   end
-
 end
-
-end # module BaseSpace
-end # module Bio
 

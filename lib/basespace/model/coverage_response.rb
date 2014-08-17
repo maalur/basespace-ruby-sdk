@@ -14,27 +14,25 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Response of a coverage object.
-class CoverageResponse < Model
+    # Response of a coverage object.
+    class CoverageResponse < Model
 
-  # Create a new CoverageResponse.
-  def initialize
-    @swagger_types = {
-      'ResponseStatus'  => 'ResponseStatus',
-      'Response'        => 'Coverage',
-      'Notifications'   => 'list<Str>',
-    }
-    @attributes = {
-      'ResponseStatus'  => nil, # ResponseStatus
-      'Response'        => nil, # Coverage
-      'Notifications'   => nil, # list<Str>
-    }
+      # Create a new CoverageResponse.
+      def initialize
+        @swagger_types = {
+          'ResponseStatus'  => 'ResponseStatus',
+          'Response'        => 'Coverage',
+          'Notifications'   => 'list<Str>',
+        }
+        @attributes = {
+          'ResponseStatus'  => nil, # ResponseStatus
+          'Response'        => nil, # Coverage
+          'Notifications'   => nil, # list<Str>
+        }
+      end
+    end
   end
-
 end
-
-end # module BaseSpace
-end # module Bio
 

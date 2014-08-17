@@ -14,35 +14,34 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Representation of coverage.
-class Coverage < Model
+    # Representation of coverage.
+    class Coverage < Model
 
-  # Create a new Coverage instance.
-  def initialize
-    @swagger_types = {
-      'Chrom'         => 'str',
-      'BucketSize'    => 'int',
-      'MeanCoverage'  => 'list<int>',
-      'EndPos'        => 'int',
-      'StartPos'      => 'int',
-    }
-    @attributes = {
-      'Chrom'         => nil, # str
-      'BucketSize'    => nil, # int Each returned number will represent coverage of this many bases.
-      'MeanCoverage'  => nil, # list<Str>
-      'EndPos'        => nil, # int End position, possibly adjusted to match zoom boundaries
-      'StartPos'      => nil, # int Start position, possibly adjusted to match zoom boundaries
-    }
-  end
+      # Create a new Coverage instance.
+      def initialize
+        @swagger_types = {
+          'Chrom'         => 'str',
+          'BucketSize'    => 'int',
+          'MeanCoverage'  => 'list<int>',
+          'EndPos'        => 'int',
+          'StartPos'      => 'int',
+        }
+        @attributes = {
+          'Chrom'         => nil, # str
+          'BucketSize'    => nil, # int Each returned number will represent coverage of this many bases.
+          'MeanCoverage'  => nil, # list<Str>
+          'EndPos'        => nil, # int End position, possibly adjusted to match zoom boundaries
+          'StartPos'      => nil, # int Start position, possibly adjusted to match zoom boundaries
+        }
+      end
 
-  # Return the genomic position and bucket size of the object.
-  def to_s
-    return "Chrom #{get_attr('Chrom')}: #{get_attr('StartPos')}-#{get_attr('EndPos')}, BucketSize=#{get_attr('BucketSize')}"
+      # Return the genomic position and bucket size of the object.
+      def to_s
+        "Chrom #{get_attr('Chrom')}: #{get_attr('StartPos')}-#{get_attr('EndPos')}, BucketSize=#{get_attr('BucketSize')}"
+      end
+    end
   end
 end
-
-end # module BaseSpace
-end # module Bio
 

@@ -14,43 +14,42 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Genome model.
-class GenomeV1 < Model
+    # Genome model.
+    class GenomeV1 < Model
 
-  # Create a new GenomeV1 instance.
-  def initialize
-    @swagger_types = {
-      'Source'       => 'str',
-      'SpeciesName'  => 'str',
-      'Build'        => 'str',
-      'Id'           => 'str',
-      'Href'         => 'str',
-      'DisplayName'  => 'str',
-    }
-    @attributes = {
-      'Source'       => nil, # str
-      'SpeciesName'  => nil, # str
-      'Build'        => nil, # str
-      'Id'           => nil, # str
-      'Href'         => nil, # str
-      'DisplayName'  => nil, # str
-    }
-  end
+      # Create a new GenomeV1 instance.
+      def initialize
+        @swagger_types = {
+          'Source'       => 'str',
+          'SpeciesName'  => 'str',
+          'Build'        => 'str',
+          'Id'           => 'str',
+          'Href'         => 'str',
+          'DisplayName'  => 'str',
+        }
+        @attributes = {
+          'Source'       => nil, # str
+          'SpeciesName'  => nil, # str
+          'Build'        => nil, # str
+          'Id'           => nil, # str
+          'Href'         => nil, # str
+          'DisplayName'  => nil, # str
+        }
+      end
 
-  # Return species name, or if absent, return display name, or if absent too, return the Href.
-  def to_s
-    if get_attr('SpeciesName')
-      return get_attr('SpeciesName')
-    elsif get_attr('DisplayName')
-      return get_attr('DisplayName')
-    else
-      return "Genome @ #{get_attr('Href')}"
+      # Return species name, or if absent, return display name, or if absent too, return the Href.
+      def to_s
+        if get_attr('SpeciesName')
+          get_attr('SpeciesName')
+        elsif get_attr('DisplayName')
+          get_attr('DisplayName')
+        else
+          "Genome @ #{get_attr('Href')}"
+        end
+      end
     end
   end
 end
-
-end # module BaseSpace
-end # module Bio
 

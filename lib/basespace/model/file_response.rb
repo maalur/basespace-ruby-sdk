@@ -14,27 +14,25 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# File response object.
-class FileResponse < Model
+    # File response object.
+    class FileResponse < Model
 
-  # Create a new FileResponse instance.
-  def initialize
-    @swagger_types = {
-      'ResponseStatus'  => 'ResponseStatus',
-      'Response'        => 'File',
-      'Notifications'   => 'list<Str>'
-    }
-    @attributes = {
-      'ResponseStatus'  => nil, # ResponseStatus
-      'Response'        => nil, # File
-      'Notifications'   => nil, # list<Str>
-    }
+      # Create a new FileResponse instance.
+      def initialize
+        @swagger_types = {
+          'ResponseStatus'  => 'ResponseStatus',
+          'Response'        => 'File',
+          'Notifications'   => 'list<Str>'
+        }
+        @attributes = {
+          'ResponseStatus'  => nil, # ResponseStatus
+          'Response'        => nil, # File
+          'Notifications'   => nil, # list<Str>
+        }
+      end
+    end
   end
-
 end
-
-end # module BaseSpace
-end # module Bio
 

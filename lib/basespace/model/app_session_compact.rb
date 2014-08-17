@@ -14,30 +14,28 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Returned from GET purchases.
-class AppSessionCompact < Model
+    # Returned from GET purchases.
+    class AppSessionCompact < Model
 
-  # Create a new object.
-  def initialize
-    @swagger_types = {
-      'Id'    => 'str',
-      'Name'  => 'str',
-    }
-    @attributes = {
-      'Id'    => nil,
-      'Name'  => nil,
-    }
+      # Create a new object.
+      def initialize
+        @swagger_types = {
+          'Id'    => 'str',
+          'Name'  => 'str',
+        }
+        @attributes = {
+          'Id'    => nil,
+          'Name'  => nil,
+        }
+      end
+
+      # Return the name of the object.
+      def to_s
+        get_attr('Name').to_s
+      end
+    end
   end
-
-  # Return the name of the object.
-  def to_s
-    return get_attr('Name').to_s
-  end
-
 end
-
-end # module BaseSpace
-end # module Bio
 

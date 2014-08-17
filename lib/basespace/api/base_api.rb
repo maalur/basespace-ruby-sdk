@@ -199,11 +199,6 @@ class BaseAPI
     "BaseSpaceAPI instance - using token=#{get_access_token}"
   end
 
-  # Return a string representation of this object.
-  def to_str
-    self.to_s
-  end
-
   # Specify the timeout in seconds for each request.
   #
   # +param time+:: Timeout in second.
@@ -229,6 +224,8 @@ class BaseAPI
   def get_server_uri
     @api_client.api_server
   end
+
+  alias_method :to_str, :to_s
 end
 
 end # module BaseSpace

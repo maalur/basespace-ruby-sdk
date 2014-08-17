@@ -15,39 +15,35 @@ require 'json'
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# A list response object.
-class ListResponse < Model
+    # A list response object.
+    class ListResponse < Model
 
-  # Create a new ListResponse instance.
-  def initialize
-    @swagger_types = {
-      'ResponseStatus'  => 'ResponseStatus',
-      'Response'        => 'ResourceList',
-      'Notifications'   => 'list<Str>',
-    }
-    @attributes = {
-      'ResponseStatus'  => nil, # ResponseStatus
-      'Response'        => nil, # ResourceList
-      'Notifications'   => nil, # list<Str>
-    }
-  end
+      # Create a new ListResponse instance.
+      def initialize
+        @swagger_types = {
+          'ResponseStatus'  => 'ResponseStatus',
+          'Response'        => 'ResourceList',
+          'Notifications'   => 'list<Str>',
+        }
+        @attributes = {
+          'ResponseStatus'  => nil, # ResponseStatus
+          'Response'        => nil, # ResourceList
+          'Notifications'   => nil, # list<Str>
+        }
+      end
 
-  # Converts the object to a Ruby Array.
-  def convert_to_object_list
-    l = []
-    get_attr('Response').items.each do |m|
-      io = eval(m)
-      s = io.to_json
-      mj = JSON.parse(s)
-      l << mj
+      # Converts the object to a Ruby Array.
+      def convert_to_object_list
+        l = []
+        get_attr('Response').items.each do |m|
+          l << JSON.parse(eval(m).to_json)
+        end
+        l
+      end
+
     end
-    return l
   end
-
 end
-
-end # module BaseSpace
-end # module Bio
 

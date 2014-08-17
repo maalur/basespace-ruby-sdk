@@ -16,11 +16,14 @@ require 'rspec'
 
 require 'bio-basespace-sdk'
 
-describe Bio::BaseSpace::APIClient do
-    describe "initialization" do
-        it "omitting access token" do
-            expect { Bio::BaseSpace::APIClient.new }.to raise_error(Bio::BaseSpace::UndefinedParameterError)
-        end
-    end
-end
+describe Bio::BaseSpace::BaseSpaceAPI do
+	describe "initialization" do
+    context "with authentication/connection details in 'credentials.json'" do
+      it "fails when 'credentials.json' does not exist" do
+      	expect { BaseSpaceAPI.start }.to raise_error
+      end
 
+      it "raises an error"
+    end
+	end
+end

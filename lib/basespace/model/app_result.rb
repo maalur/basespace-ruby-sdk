@@ -62,7 +62,7 @@ module Bio
         # NOTE Simplified in Ruby to align with the Sample class.
         #      See example 3_accessing_files.rb (3_AccessingFiles.py)
         #return "AppResult: #{get_attr('Name')}" #+ " - #{get_attr('Status')"
-        return get_attr('Name')
+        get_attr('Name')
       end
 
       # Returns the scope-string to be used for requesting BaseSpace access to the object.
@@ -70,7 +70,7 @@ module Bio
       # +scope+:: The scope-type that is request (write|read).
       def get_access_str(scope = 'write')
         is_init
-        return "#{scope} appresult #{get_attr('Id')}"
+        "#{scope} appresult #{get_attr('Id')}"
       end
 
       # Tests if the Project instance has been initialized.
@@ -150,6 +150,6 @@ module Bio
       #   return api.multipart_file_upload(get_attr('Id'), local_path, file_name, directory, content_type, temp_dir, cpu_count, part_size, verbose)
       # end
     end
-  end # module BaseSpace
-end # module Bio
+  end
+end
 

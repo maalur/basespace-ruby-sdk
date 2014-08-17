@@ -14,30 +14,28 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Models coverage metadata.
-class CoverageMetadata < Model
+    # Models coverage metadata.
+    class CoverageMetadata < Model
 
-  # Create a new CoeverageMetadata instance.
-  def initialize
-    @swagger_types = {
-      'MaxCoverage'          => 'int',
-      'CoverageGranularity'  => 'int',
-    }
-    @attributes = {
-      'MaxCoverage'          => nil, # int Maximum coverage value of any base, on a per-base level, for the entire chromosome. Useful for scaling
-      'CoverageGranularity'  => nil, # int Supported granularity of queries
-    }
+      # Create a new CoeverageMetadata instance.
+      def initialize
+        @swagger_types = {
+          'MaxCoverage'          => 'int',
+          'CoverageGranularity'  => 'int',
+        }
+        @attributes = {
+          'MaxCoverage'          => nil, # int Maximum coverage value of any base, on a per-base level, for the entire chromosome. Useful for scaling
+          'CoverageGranularity'  => nil, # int Supported granularity of queries
+        }
+      end
+
+      # Return a string denoting the maximum coverage and coverage granularity.
+      def to_s
+        "CoverageMeta: max=#{get_attr('MaxCoverage')} gran=#{get_attr('CoverageGranularity')}"
+      end
+    end
   end
-
-  # Return a string denoting the maximum coverage and coverage granularity.
-  def to_s
-    return "CoverageMeta: max=#{get_attr('MaxCoverage')} gran=#{get_attr('CoverageGranularity')}"
-  end
-
 end
-
-end # module BaseSpace
-end # module Bio
 

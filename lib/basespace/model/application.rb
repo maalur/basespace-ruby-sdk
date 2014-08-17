@@ -14,34 +14,31 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# An App representation, which contains data such as name, homepage URI, a short
-# description and the data the App was created.
-class Application < Model
+    # An App representation, which contains data such as name, homepage URI, a short
+    # description and the data the App was created.
+    class Application < Model
 
-  # Create a new instance.
-  def initialize
-    @swagger_types = {
-      'Id'                => 'str',
-      'Href'              => 'str',
-      'Name'              => 'str',
-      'HomepageUri'       => 'str',
-      'ShortDescription'  => 'str',
-      'DateCreated'       => 'datetime',
-    }
-    @attributes = {
-      'Id'                => nil,
-      'Href'              => nil,
-      'Name'              => nil,
-      'HomepageUri'       => nil,
-      'ShortDescription'  => nil,
-      'DateCreated'       => nil,
-    }
+      # Create a new instance.
+      def initialize
+        @swagger_types = {
+          'Id'                => 'str',
+          'Href'              => 'str',
+          'Name'              => 'str',
+          'HomepageUri'       => 'str',
+          'ShortDescription'  => 'str',
+          'DateCreated'       => 'datetime',
+        }
+        @attributes = {
+          'Id'                => nil,
+          'Href'              => nil,
+          'Name'              => nil,
+          'HomepageUri'       => nil,
+          'ShortDescription'  => nil,
+          'DateCreated'       => nil,
+        }
+      end
+    end
   end
-
 end
-
-end # module BaseSpace
-end # module Bio
-

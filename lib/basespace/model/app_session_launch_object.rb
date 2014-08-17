@@ -14,45 +14,42 @@
 require 'basespace/model'
 
 module Bio
-module BaseSpace
+  module BaseSpace
 
-# Records the launch as part of an AppSession.
-class AppSessionLaunchObject < Model
+    # Records the launch as part of an AppSession.
+    class AppSessionLaunchObject < Model
 
-  # Create a new instance.
-  def initialize
-    @swagger_types = {
-      'Content'      => 'dict',
-      'Href'         => 'str',
-      'HrefContent'  => 'str',
-      'Rel'          => 'str',
-      'Type'         => 'str',
-    }
-    @attributes = {
-      'Content'      => nil,
-      'Href'         => nil,
-      'HrefContent'  => nil,
-      'Rel'          => nil,
-      'Type'         => nil,
-    }
+      # Create a new instance.
+      def initialize
+        @swagger_types = {
+          'Content'      => 'dict',
+          'Href'         => 'str',
+          'HrefContent'  => 'str',
+          'Rel'          => 'str',
+          'Type'         => 'str',
+        }
+        @attributes = {
+          'Content'      => nil,
+          'Href'         => nil,
+          'HrefContent'  => nil,
+          'Rel'          => nil,
+          'Type'         => nil,
+        }
+      end
+
+      # Returns the type of the object.
+      def to_s
+        get_attr('Type').to_s
+      end
+
+      # Serializes the object.
+      #
+      # +api+:: BaseSpaceAPI instance.
+      def serialize_object(api)
+        res = api.serialize_object(get_attr('Content'), get_attr('Type'))
+        set_attr('Content', res)
+        self
+      end
+    end
   end
-
-  # Returns the type of the object.
-  def to_s
-    return get_attr('Type').to_s
-  end
-
-  # Serializes the object.
-  #
-  # +api+:: BaseSpaceAPI instance.
-  def serialize_object(api)
-    res = api.serialize_object(get_attr('Content'), get_attr('Type'))
-    set_attr('Content', res)
-    return self
-  end
-
 end
-
-end # module BaseSpace
-end # module Bio
-

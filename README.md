@@ -71,16 +71,18 @@ Creating a `BaseSpaceAPI` object using `new`:
     
     include Bio::BaseSpace
     
-    # Authentication and connection details:
-    client_id       = '<my client key>'
-    client_secret   = '<my client secret>'
-    app_session_id  = '<my app session id>'
-    access_token    = '<my access token>'
-    basespace_url   = 'https://api.basespace.illumina.com/'
-    api_version     = 'v1pre3'
+    # Authentication and connection details in a parameters hash:
+    params = {
+      'client_id'       => '<my client key>',
+      'client_secret'   => '<my client secret>',
+      'app_session_id'  => '<my app session id>',
+      'access_token'    => '<my access token>',
+      'basespace_url'   => 'https://api.basespace.illumina.com/',
+      'api_version'     => 'v1pre3'
+    }
     
     # Initialize a BaseSpace API object:
-    bs_api = BaseSpaceAPI.new(client_id, client_secret, basespace_url, api_version, app_session_id, access_token)
+    bs_api = BaseSpaceAPI.new(params)
 
 Creating a `BaseSpaceAPI` object using `credentials.json`:
 
