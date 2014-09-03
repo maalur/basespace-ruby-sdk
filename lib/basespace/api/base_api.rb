@@ -149,15 +149,6 @@ class BaseAPI
     converted
   end
 
-  # URL encode a Hash of data values.
-  #
-  # +hash+:: data encoded in a Hash.
-  def hash2urlencode(hash)
-    # use URI.enode_www_form_component instead of
-    #hash.map{|k,v| URI.encode_www_form_component(k.to_s) + "=" + URI.encode_www_form_component(v.to_s)}.join("&")
-    URI.encode_www_form(hash)
-  end
-
   # Post data to the given BaseSpace API URL. Method name is a bit of a 
   # misnomer, because 'curl' is not used by this method -- instead only
   # Ruby core classes are used.
@@ -172,7 +163,7 @@ class BaseAPI
       $stderr.puts "    # url: #{url}"
       $stderr.puts "    # "
     end
-    post = hash2urlencode(data)
+    post = URI.encode_www_form(data)
     uri = URI.parse(url)
     #res = Net::HTTP.post_form(uri, post).body
     http_opts = {}

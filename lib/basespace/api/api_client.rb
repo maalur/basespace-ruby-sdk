@@ -65,17 +65,10 @@ class APIClient
     http_opts = {}
     http_opts[:use_ssl] = true if uri.scheme == "https"
     res = Net::HTTP.start(uri.host, uri.port, http_opts) { |http|
-      encoded_data = hash2urlencode(post_data)
+      encoded_data = URI.encode_www_form(post_data)
       http.post(uri.path, encoded_data, headers)
     }
     res.body
-  end
-
-  # URL encode a Hash of data values.
-  #
-  # +hash+:: data encoded in a Hash.
-  def hash2urlencode(hash)
-    URI.encode_www_form(hash)
   end
 
   # Makes a PUT call to a given URI for depositing file contents.
@@ -127,7 +120,7 @@ class APIClient
       query_params.each do |param, value|
         sent_query_params[param] = value if bool(value)
       end
-      cgi_params = hash2urlencode(sent_query_params)
+      cgi_params = URI.encode_www_form(sent_query_params)
     end
 
     if $DEBUG

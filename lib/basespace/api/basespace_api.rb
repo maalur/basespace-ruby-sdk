@@ -202,7 +202,7 @@ class BaseSpaceAPI < BaseAPI
       raise "This BaseSpaceAPI instance has no client_id (key) set and no alternative id was supplied for method get_verification_code."
     end
     data = {'client_id' => @key, 'redirect_uri' => redirect_url, 'scope' => scope, 'response_type' => 'code', "state" => state}
-    @weburl + WEB_AUTHORIZE + '?' + hash2urlencode(data)
+    @weburl + WEB_AUTHORIZE + '?' + URI.encode_www_form(data)
   end
 
   # Returns a user specific access token.    
