@@ -81,19 +81,6 @@ class APIClient
     %x(curl -H "x-access-token:#{@api_key}" -H "Content-MD5:#{headers['Content-MD5'].strip}" -T "#{trans_file}" -X PUT #{resource_path})
   end
 
-  # Deserialize a boolean value to a Ruby object.
-  #
-  # +value+:: serialized representation of the boolean value.
-  def bool(value)
-    case value
-    when nil, false, 0, 'nil', 'false', '0', 'None'
-      result = false
-    else
-      result = true
-    end
-    result
-  end
-
   # Carries out a RESTful operation on the BaseSpace API.
   #
   # TODO Need check. Logic in this method is rather complicated...
@@ -104,7 +91,7 @@ class APIClient
   # +post_data+:: Hash that contains data to be transferred.
   # +header_params+:: Additional settings that should be transferred in the HTTP header.
   # +force_post+:: Truth value that indicates whether a POST should be forced.
-  def call_api(resource_path, method, query_params, post_data, header_params = nil, force_post = false)
+  def call_api(resource_path, method, query_params, post_data = nil, header_params = {}, force_post = false)
     url = @api_server + resource_path
 
     headers = header_params.dup
@@ -217,13 +204,6 @@ class APIClient
       data = nil
     end
     data
-  end
-
-  # Serialize a list to a CSV string, if necessary.
-  #
-  # +obj+:: Data object to be serialized.
-  def to_path_value(obj)
-    obj.kind_of?(Array) ? obj.join(',') : obj
   end
 
   # Deserialize a JSON string into an object.

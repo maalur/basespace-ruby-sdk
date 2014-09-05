@@ -36,7 +36,6 @@ class BaseAPI
       $stderr.puts "    # access_token: #{access_token}"
       $stderr.puts "    # "
     end
-    @api_client = nil
     set_timeout(10)
     set_access_token(access_token)        # logic for setting the access-token 
   end
@@ -60,7 +59,7 @@ class BaseAPI
   # +verbose+:: Truth value indicating whether verbose output should be provided.
   # +force_post+:: Truth value that indicates whether a POST should be forced.
   # +no_api+:: (unclear; TODO)
-  def single_request(my_model, resource_path, method, query_params, header_params, post_data = nil, verbose = false, force_post = false, no_api = true)
+  def single_request(my_model, resource_path, method, query_params = {}, header_params = {}, post_data = nil, verbose = false, force_post = false, no_api = true)
     # test if access-token has been set
     if not @api_client and no_api
       raise 'Access-token not set, use the "set_access_token"-method to supply a token value'
@@ -106,7 +105,7 @@ class BaseAPI
   # +header_params+:: Additional settings that should be transferred in the HTTP header.
   # +verbose+:: Truth value indicating whether verbose output should be provided.
   # +no_api+:: (unclear; TODO)
-  def list_request(my_model, resource_path, method, query_params, header_params, verbose = false, no_api = true)
+  def list_request(my_model, resource_path, method, query_params, header_params = {}, verbose = false, no_api = true)
     # test if access-token has been set
     if not @api_client and no_api
       raise 'Access-token not set, use the "set_access_token"-method to supply a token value'
@@ -202,8 +201,7 @@ class BaseAPI
   #
   # +token+:: New API token.
   def set_access_token(token)
-    @api_client = nil
-    @api_client = APIClient.new(token, @api_server, @timeout) if token
+    @api_client = token ? APIClient.new(token, @api_server, @timeout) : nil
   end
 
   # Returns the access-token that was used to initialize the BaseSpaceAPI object.

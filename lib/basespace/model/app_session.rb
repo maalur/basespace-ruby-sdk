@@ -65,7 +65,7 @@ module Bio
 
       # Returns whether the App is running.
       def can_work_on
-        ['running'].include?(get_attr('Status').downcase)
+        get_attr('Status').downcase == 'running'
       end
         
       # Sets the status of the AppSession.
@@ -76,9 +76,8 @@ module Bio
       # +status+:: Status value, either: completed, aborted, working, or suspended.
       # +summary+:: Status summary.
       def set_status(api, status, summary)
-        current_status = get_attr('Status')
-        if current_status.downcase == 'complete' or current_status.downcase == 'aborted'
-          raise "The status of AppSession = #{self.to_s} is #{current_status}, no further status changes are allowed."
+        if ['complete', 'aborted'].include?(get_attr('Status').downcase)
+          raise "The status of AppSession = #{self} is #{current_status}, no further status changes are allowed."
         end
 
         # To prevent the AppResult object from being in an inconsistent state

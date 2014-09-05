@@ -120,6 +120,26 @@ module Bio
       return hash
     end
 
+    # Deserialize a boolean value to a Ruby object.
+    #
+    # +value+:: serialized representation of the boolean value.
+    def bool(value)
+      case value
+      when nil, false, 0, 'nil', 'false', '0', 'None'
+        result = false
+      else
+        result = true
+      end
+      result
+    end
+
+    # Serialize a list to a CSV string, if necessary.
+    #
+    # +obj+:: Data object to be serialized.
+    def to_path_value(obj)
+      obj.kind_of?(Array) ? obj.join(',') : obj
+    end
+
   end # BaseSpace
 end # Bio
 
